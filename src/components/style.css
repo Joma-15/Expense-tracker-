@@ -50,22 +50,29 @@ p{
     border: 1px solid black;
 }
 
+.empty{
+    margin-top: 72px;
+}
+
 /*For purchased items*/
 .input-container{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    align-items: center;
-    padding-right: 64vh;
-    padding-top: 40px;
+    align-items: flex-start;
+    margin-left: 500px;
 }
 
 input{
-    width: 30vh;
+    width: 92vh;
     height: 40px;
 }
 
 label{
     text-align: left;
     margin-right: 24vh;
+}
+
+.purchased-btn{
+    margin-left: 100vh;
 }

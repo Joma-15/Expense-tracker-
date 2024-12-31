@@ -9,7 +9,7 @@ export const AddPurchased = () => {
         <label htmlFor="Item Name">Amount:</label>
         <input type="text" placeholder="Amount"/>
       </div>
-      <button type="button" className="btn btn-success">Purchase</button>
+      <button type="button" className="btn btn-success purchased-btn">Purchase</button>
     </>
   );
 };

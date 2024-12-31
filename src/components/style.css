@@ -1,3 +1,5 @@
+/*global styles*/
+
 h2{
     font-size: 20px;
     margin-top: 100px;
@@ -31,6 +33,7 @@ p{
     width: 100px;
 }
 
+/*For History*/
 .History_container{
     display: flex;
     flex-direction: column;
@@ -38,7 +41,31 @@ p{
     padding-right: 17vh;
     gap: 15px;
 }
+
+.History-box{
+    margin-left: 150px;
+    background-color: white;
+    height: 30vh;
+    width: 90vh;
+    border: 1px solid black;
+}
+
+/*For purchased items*/
+.input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding-right: 64vh;
+    padding-top: 40px;
+}
+
 input{
-    width: 500px;
+    width: 30vh;
     height: 40px;
+}
+
+label{
+    text-align: left;
+    margin-right: 24vh;
 }

@@ -1,34 +1,49 @@
 h2{
+    font-size: 20px;
     margin-top: 100px;
     text-align: center;
     position: relative;
     right: 45vh;
 }
 
+h1{
+    font-size: 30px;
+}
+
 p{
     text-align: center; 
-    right: 35vh;
-    margin-top: 60px;
-    position: relative;
+    right: 1vh;
+    margin-top: 30px;
     font-size: 5vh;
+    margin-left: 50px;
 }
 
 /*for the balancesheet*/
 .Balance_container{
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.btn.btn-success{
+    margin-top: 30px;
+    height: 50px;
+    width: 100px;
 }
 
 
-
-
-.History_container{
+.History_container {
     display: flex;
     flex-direction: column;
     gap: 10px;
     max-width: 500px;
     margin-left: 50vh;
+    padding-right: 60px;
+    padding-bottom: 60px;
+    margin: 0 auto;
+    margin-top: -45px; /* Adjust to move it upwards */
 }
-input{
+
+input {
     height: 40px;
 }

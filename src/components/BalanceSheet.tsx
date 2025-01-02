@@ -36,14 +36,12 @@ export const BalanceSheet = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <div className="purchase-container">
                 <input
                   className="Purchase-box"
                   type="text"
                   placeholder="Enter the amount here"
                 />
-                <button className="btn btn-success">Add</button>
-              </div>
+                 <button className="btn btn-success add-button">Add</button>
             </div>
           </div>
         </div>

@@ -1,4 +1,23 @@
+import React, { useState } from "react";
+
 export const BalanceSheet = () => {
+  const [amount, setAmount] = useState<string>("");
+
+  const StoreMoney = (money: string): void => {
+    localStorage.setItem("userMoney", money);
+    alert(`₱${money} has been added to your balance!`);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault(); // Prevents form submission default behavior
+    if (amount.trim() === "" || isNaN(Number(amount)) || Number(amount) <= 0) {
+      alert("Please enter a valid amount.");
+      return;
+    }
+    StoreMoney(amount);
+    setAmount(""); // Reset the input field after storing
+  };
+
   return (
     <>
       <h2>Your Balance:</h2>
@@ -36,13 +55,23 @@ export const BalanceSheet = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <form>
-                <input
-                  className="Purchase-box border"
-                  type="text"
-                  placeholder="Enter the amount here"
-                />
-                <button className="btn btn-success add-button">Add</button>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="amountInput" className="form-label">
+                    Enter Amount
+                  </label>
+                  <input
+                    id="amountInput"
+                    className="form-control"
+                    type="number"
+                    placeholder="₱0.00"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)} // Update state on input change
+                  />
+                </div>
+                <button type="submit" className="btn btn-success w-100">
+                  Add
+                </button>
               </form>
             </div>
           </div>

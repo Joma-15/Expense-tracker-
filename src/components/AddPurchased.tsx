@@ -1,4 +1,5 @@
 export const AddPurchased = () => {
+  //hello world
   return (
     <>
       <h2>Add Transaction:</h2>

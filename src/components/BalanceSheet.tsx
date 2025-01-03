@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 
 export const BalanceSheet = () => {
   const [amount, setAmount] = useState<string>("");
+  const [balance, setBalance] = useState<number>(0); 
+
+  //this will be used to render background component 
+  useEffect(() => {
+    const storedBalance = localStorage.getItem("userMoney"); 
+    if(storedBalance){
+      setBalance(Number(storedBalance));
+    }
+  }, [])//using the brakcet will only run the useeffect after mounting only at once 
 
   const StoreMoney = (money: string): void => {
-    localStorage.setItem("userMoney", money);
+    const newBalance = balance + Number(money);
+    localStorage.setItem("userMoney", newBalance.toString()); 
+    setBalance( newBalance);
     alert(`₱${money} has been added to your balance!`);
-  };
+  }
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault(); // Prevents form submission default behavior
@@ -22,7 +33,7 @@ export const BalanceSheet = () => {
     <>
       <h2>Your Balance:</h2>
       <div className="Balance_container">
-        <p>₱3000000</p>
+        <p>{`₱${balance.toFixed(2)}`}</p>
         <button
           type="button"
           className="btn btn-success"

@@ -36,6 +36,7 @@ export const BalanceSheet = () => {
       alert("Please enter a valid amount.");
       return;
     }
+
     StoreMoney(amount);
     setAmount(""); // Reset the input field after storing
 

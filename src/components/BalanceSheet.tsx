@@ -1,32 +1,50 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { Modal } from "bootstrap";
 
 export const BalanceSheet = () => {
   const [amount, setAmount] = useState<string>("");
-  const [balance, setBalance] = useState<number>(0); 
+  const [balance, setBalance] = useState<number>(0);
+  const [modalInstance, setModalInstance] = useState<Modal | null>(null);
 
-  //this will be used to render background component 
+  // Initialize balance from localStorage on mount
   useEffect(() => {
-    const storedBalance = localStorage.getItem("userMoney"); 
-    if(storedBalance){
+    const storedBalance = localStorage.getItem("userMoney");
+    if (storedBalance) {
       setBalance(Number(storedBalance));
     }
-  }, [])//using the brakcet will only run the useeffect after mounting only at once 
+
+    // Initialize modal instance
+    const modalElement = document.getElementById("staticBackdrop");
+    if (modalElement) {
+      const modal = new Modal(modalElement, {
+        backdrop: "static",
+        keyboard: false,
+      });
+      setModalInstance(modal);
+    }
+  }, []);
 
   const StoreMoney = (money: string): void => {
     const newBalance = balance + Number(money);
-    localStorage.setItem("userMoney", newBalance.toString()); 
-    setBalance( newBalance);
-    alert(`₱${money} has been added to your balance!`);
-  }
+    localStorage.setItem("userMoney", newBalance.toString());
+    setBalance(newBalance);
+  };
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); // Prevents form submission default behavior
+    event.preventDefault();
     if (amount.trim() === "" || isNaN(Number(amount)) || Number(amount) <= 0) {
       alert("Please enter a valid amount.");
       return;
     }
     StoreMoney(amount);
     setAmount(""); // Reset the input field after storing
+
+    // Hide the modal after submission
+    modalInstance?.hide();
+  };
+
+  const handleOpenModal = () => {
+    modalInstance?.show();
   };
 
   return (
@@ -37,8 +55,7 @@ export const BalanceSheet = () => {
         <button
           type="button"
           className="btn btn-success"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
+          onClick={handleOpenModal}
         >
           Deposit
         </button>
@@ -47,8 +64,7 @@ export const BalanceSheet = () => {
       <div
         className="modal fade"
         id="staticBackdrop"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
+        tabIndex={-1}
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
@@ -61,7 +77,7 @@ export const BalanceSheet = () => {
               <button
                 type="button"
                 className="btn-close"
-                data-bs-dismiss="modal"
+                onClick={() => modalInstance?.hide()}
                 aria-label="Close"
               ></button>
             </div>
@@ -77,7 +93,7 @@ export const BalanceSheet = () => {
                     type="number"
                     placeholder="₱0.00"
                     value={amount}
-                    onChange={(e) => setAmount(e.target.value)} // Update state on input change
+                    onChange={(e) => setAmount(e.target.value)}
                   />
                 </div>
                 <button type="submit" className="btn btn-success w-100">

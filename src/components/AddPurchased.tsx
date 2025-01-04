@@ -1,15 +1,21 @@
 import { useState } from "react";
 
 export const AddPurchased = () => {
-  const [items, setItem] = useState("");
-  const [amounts, setAmount] = useState("");
+  const [items, setItem] = useState<string>("");
+  const [amounts, setAmount] = useState<string>("");
 
   const StorePurchasedItem = (item: string): void => {
-    localStorage.setItem("item", item);
+    const storedItems = JSON.parse(localStorage.getItem("item") || "[]"); // Get existing items or initialize with an empty array
+    storedItems.push(item); // Add the new item
+    localStorage.setItem("item", JSON.stringify(storedItems)); // Save updated list
+    console.log(storedItems)
   };
 
   const StoreItemAmount = (amount: string): void => {
-    localStorage.setItem("amount", amount);
+    const storedAmounts = JSON.parse(localStorage.getItem("amount") || "[]"); // Get existing amounts or initialize with an empty array
+    storedAmounts.push(amount); // Add the new amount
+    localStorage.setItem("amount", JSON.stringify(storedAmounts)); // Save updated list
+    console.log(storedAmounts)
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -18,7 +24,7 @@ export const AddPurchased = () => {
       alert("item and amount cannot be empty");
       return;
     }
-    alert("item submitted successfully")
+    alert("item submitted successfully");
     StorePurchasedItem(items);
     StoreItemAmount(amounts);
     setItem("");

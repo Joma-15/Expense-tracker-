@@ -1,6 +1,6 @@
 interface Props{
-  item: string | null;
-  amount: string | null;
+  item: string | null | string[];
+  amount: string | null | string[];
 }
 export const History = ({item, amount}: Props) => {
   const ItemAmount = `${item}: ${amount}`;

@@ -1,35 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const AddPurchased = () => {
   const [items, setItem] = useState<string>("");
   const [amounts, setAmount] = useState<string>("");
+  const [itemList, setItemList] = useState<string[]>([]);
+  const [amountList, setAmountList] = useState<string[]>([]);
+
+  // Load initial data from localStorage when the component mounts
+  useEffect(() => {
+    const storedItems = JSON.parse(localStorage.getItem("item") || "[]");
+    const storedAmounts = JSON.parse(localStorage.getItem("amount") || "[]");
+    setItemList(storedItems);
+    setAmountList(storedAmounts);
+  }, []);
 
   const StorePurchasedItem = (item: string): void => {
-    const storedItems = JSON.parse(localStorage.getItem("item") || "[]"); // Get existing items or initialize with an empty array
-    storedItems.push(item); // Add the new item
-    localStorage.setItem("item", JSON.stringify(storedItems)); // Save updated list
-    console.log(storedItems)
+    const updatedItems = [...itemList, item];
+    setItemList(updatedItems); // Update the state
+    localStorage.setItem("item", JSON.stringify(updatedItems)); // Save to localStorage
   };
 
   const StoreItemAmount = (amount: string): void => {
-    const storedAmounts = JSON.parse(localStorage.getItem("amount") || "[]"); // Get existing amounts or initialize with an empty array
-    storedAmounts.push(amount); // Add the new amount
-    localStorage.setItem("amount", JSON.stringify(storedAmounts)); // Save updated list
-    console.log(storedAmounts)
+    const updatedAmounts = [...amountList, amount];
+    setAmountList(updatedAmounts); // Update the state
+    localStorage.setItem("amount", JSON.stringify(updatedAmounts)); // Save to localStorage
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); //stop the page from reloading when the form is submitted
+    e.preventDefault(); // Prevent page reload
     if (amounts.trim() === "" || items.trim() === "") {
-      alert("item and amount cannot be empty");
+      alert("Item and amount cannot be empty");
       return;
     }
-    alert("item submitted successfully");
+    alert("Item submitted successfully");
     StorePurchasedItem(items);
     StoreItemAmount(amounts);
     setItem("");
     setAmount("");
   };
+
   return (
     <>
       <h2>Add Transaction:</h2>
@@ -55,6 +64,20 @@ export const AddPurchased = () => {
           Purchase
         </button>
       </form>
+
+      <h3>Purchased Items:</h3>
+      <ul>
+        {itemList.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+
+      <h3>Amounts:</h3>
+      <ul>
+        {amountList.map((amount, index) => (
+          <li key={index}>{amount}</li>
+        ))}
+      </ul>
     </>
   );
 };

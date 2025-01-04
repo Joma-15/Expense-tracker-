@@ -4,12 +4,14 @@ import { History } from "./components/History"
 import { AddPurchased } from "./components/AddPurchased"
 
 function App() {
+  const purchasedItem = localStorage.getItem("item"); 
+  const ItemPrice = localStorage.getItem("amount"); 
 
   return (
     <>
     <Title/>
     <BalanceSheet/>
-    <History/>
+    <History item={purchasedItem} amount={ItemPrice}/>
     <AddPurchased/>
     </>
   )

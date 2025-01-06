@@ -2,6 +2,7 @@ interface Props{
   item: string | null | string[];
   amount: string | null | string[];
 }
+edit
 export const History = ({item, amount}: Props) => {
   const ItemAmount = `${item}: ${amount}`;
   return (

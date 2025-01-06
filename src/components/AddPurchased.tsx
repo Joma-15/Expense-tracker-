@@ -64,20 +64,6 @@ export const AddPurchased = () => {
           Purchase
         </button>
       </form>
-
-      <h3>Purchased Items:</h3>
-      <ul>
-        {itemList.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-
-      <h3>Amounts:</h3>
-      <ul>
-        {amountList.map((amount, index) => (
-          <li key={index}>{amount}</li>
-        ))}
-      </ul>
     </>
   );
 };
